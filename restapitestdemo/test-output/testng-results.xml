@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="5043" started-at="2017-12-07T19:02:14Z" finished-at="2017-12-07T19:02:19Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="5043" started-at="2017-12-07T19:02:14Z" finished-at="2017-12-07T19:02:19Z">
+      <class name="com.api.restdemo.restapitestdemo.AppTest1">
+        <test-method status="PASS" signature="httpPost()[pri:0, instance:com.api.restdemo.restapitestdemo.AppTest1@2344fc66]" name="httpPost" duration-ms="5022" started-at="2017-12-08T00:32:14Z" finished-at="2017-12-08T00:32:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- httpPost -->
+      </class> <!-- com.api.restdemo.restapitestdemo.AppTest1 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
