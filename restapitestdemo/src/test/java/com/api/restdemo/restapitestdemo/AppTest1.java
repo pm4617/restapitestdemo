@@ -1,44 +1,37 @@
 package com.api.restdemo.restapitestdemo;
 
 import static io.restassured.RestAssured.given;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.testng.annotations.Test;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import java.io.DataOutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.apache.http.client.utils.URIBuilder;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.testng.annotations.Test;
-
 public class AppTest1 {
 
 	// reads folder files and
-	public HashMap<String, String> putJsonFilesInHashMap(String pathoffolder) {
+	public HashMap<Integer, String> putJsonFilesInHashMap(String pathoffolder) {
 		HashMap<String, String> hm = new HashMap<String, String>();
-
+		HashMap<Integer, String> vf = new HashMap<Integer, String>();
+		Integer i = 0;
 		File folder = new File(pathoffolder);
-
+		boolean lastLineReadEmpty = false;
 		File[] filesinfolder = folder.listFiles();
 		System.out.println(pathoffolder);
 		String filecontents = "", line = "";
@@ -46,11 +39,29 @@ public class AppTest1 {
 			Charset charset = Charset.forName("UTF-8");
 			BufferedReader reader;
 			filecontents = "";
+			System.out.println(f.getName());
 			// read file and put contents in filecontents variable
 			try {
 				reader = Files.newBufferedReader(f.toPath(), charset);
 				while ((line = reader.readLine()) != null) {
-					filecontents += line;
+					
+					if (!line.isEmpty() ) {
+						 
+						filecontents += line;
+						System.out.println(line);
+						// if line is not blank set 
+						lastLineReadEmpty = false;
+					}
+					// line is empty and last read line is not blank
+					else if(!lastLineReadEmpty) {
+						vf.put(i, filecontents);
+						filecontents = "";
+						lastLineReadEmpty = true;
+						i++;
+					}
+					// to add if current line is last line 
+					vf.put(i, filecontents);					
+					
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -59,24 +70,38 @@ public class AppTest1 {
 			// add file name and file contente in hashmap
 			// {key:abc.json , value:filecontents}
 			hm.put(f.getName(), filecontents);
+		
 		}
-
-		// prints hashmap
-		System.out.println("Size of Hashmap containing file Name and contents is = " + hm.size());
+		
+		
+		// prints hashmap and removes entries which are empty
+		System.out.println("Size of Hashmap containing file contents is = " + vf.size());
 		System.out.println("\nPrinting Hashmap Key Values...");
-		for (String key : hm.keySet()) {
-			System.out.println("Key is " + key);
-			System.out.print("Value is " + hm.get(key) + "\n");
+		
+		// Remove empty entries from vf 
+		Iterator<Map.Entry<Integer, String>> entrySetIterator = vf.entrySet().iterator();
+		while (entrySetIterator.hasNext())
+		{			
+		Map.Entry<Integer, String> entry = entrySetIterator.next();
+		
+		Integer key = entry.getKey();
+		String value = entry.getValue();
+		  if (value.isEmpty() ||  value.trim().isEmpty() )
+			{	
+				System.out.println("\nRemoving Hashmap Key Values @ ..." + key);
+				entrySetIterator.remove();
+			}
+		 
 		}
-
-		return hm;
+		System.out.println("Size of Hashmap containing file Name and contents is = " + vf.size());
+		return vf;
 	}
 
 	@Test
 	public void httpPost() throws JSONException, InterruptedException {
 		URL apiURI = null;
-		HashMap<String, String> hm = putJsonFilesInHashMap("src/jsonfiles");
-		Set<Map.Entry<String, String>> entrySet = hm.entrySet();
+		HashMap<Integer, String> hm = putJsonFilesInHashMap("src/jsonfiles");
+		Set<Entry<Integer, String>> entrySet = hm.entrySet();
 		RequestSpecBuilder builder = null;
 		RequestSpecification requestSpec = null;
 
