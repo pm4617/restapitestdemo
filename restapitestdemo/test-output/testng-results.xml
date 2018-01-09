@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="10988" started-at="2017-12-10T10:55:54Z" finished-at="2017-12-10T10:56:05Z">
+  <suite name="Default suite" duration-ms="6175" started-at="2017-12-11T16:54:44Z" finished-at="2017-12-11T16:54:50Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="10988" started-at="2017-12-10T10:55:54Z" finished-at="2017-12-10T10:56:05Z">
+    <test name="Default test" duration-ms="6175" started-at="2017-12-11T16:54:44Z" finished-at="2017-12-11T16:54:50Z">
       <class name="com.api.restdemo.restapitestdemo.AppTest1">
-        <test-method status="PASS" signature="httpPost()[pri:0, instance:com.api.restdemo.restapitestdemo.AppTest1@2344fc66]" name="httpPost" duration-ms="10969" started-at="2017-12-10T16:25:54Z" finished-at="2017-12-10T16:26:05Z">
+        <test-method status="PASS" signature="httpPost()[pri:0, instance:com.api.restdemo.restapitestdemo.AppTest1@2344fc66]" name="httpPost" duration-ms="6158" started-at="2017-12-11T22:24:44Z" finished-at="2017-12-11T22:24:50Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- httpPost -->
