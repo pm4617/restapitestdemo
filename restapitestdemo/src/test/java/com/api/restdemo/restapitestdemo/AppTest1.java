@@ -1,6 +1,5 @@
 /*
 For Devlops branch
-Logon feature
 */
 package com.api.restdemo.restapitestdemo;
 
