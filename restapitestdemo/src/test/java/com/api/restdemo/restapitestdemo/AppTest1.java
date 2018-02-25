@@ -1,7 +1,6 @@
 /*
 Copyright Open-source 2017
 For Devlops branch
-Logon feature
 */
 package com.api.restdemo.restapitestdemo;
 
