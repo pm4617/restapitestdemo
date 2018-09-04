@@ -1,0 +1,78 @@
+import java.awt.print.Printable;
+import java.text.MessageFormat;
+
+public class PassByValueStackHeap {
+
+	public static void main(String[] args) {
+
+		Balloon red = new Balloon("Red"); // memory reference 50
+		Balloon blue = new Balloon("Blue"); // memory reference 100
+		String aString = "Test format";
+		swap(red, blue);
+		System.out.println("red color=" + red.getColor());
+		System.out.println("blue color=" + blue.getColor());
+
+		red.print("Hello this is {0} my test {1} , {2} , {3}", 123, 321, -300, aString);
+
+		/*
+		 * foo(blue); System.out.println("blue color="+blue.getColor());
+		 */
+
+	}
+
+	private static void foo(Balloon balloon) { // baloon=100
+		balloon.setColor("Red"); // baloon=100
+		balloon = new Balloon("Green"); // baloon=200
+		balloon.setColor("Blue"); // baloon = 200
+	}
+
+	// Generic swap method
+
+	public static void swap(Object o1, Object o2) {
+		Object temp = o1;
+		o1 = o2;
+		o2 = temp;
+	}
+}
+
+class Balloon {
+
+	String color;
+	double d = 1.2345678901234567890123456;
+	float f =  1.2345678901234567890123456f;
+
+	public void print(String restURL, Object... params) {
+		
+		String s1 = new String("HELLO");
+        String s2 = new String("HELLO");
+        
+        String s3 = "HELLO";
+        String s4 = "HELLO";
+        
+                
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+        
+        
+        System.out.println(s3 == s4);
+        System.out.println(s3.equals(s4));       
+        
+		System.out.printf("%.20f \n", d);
+		System.out.printf("%.20f \n", f);
+		System.out.println(new MessageFormat(restURL).format(params));
+
+	}
+
+	Balloon(String color) {
+		this.color = color;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+}
