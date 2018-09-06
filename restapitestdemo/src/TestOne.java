@@ -3,16 +3,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class TestOne {
 
 	public static void main(String[] args) throws FileNotFoundException {
-
 		Application application = new Application();
-
 		application.method();
-
 	}
 
 }
@@ -26,13 +25,44 @@ class Application {
 
 	double[] myarray2 = new double[1];
 
+	
+
+	StringTokenizer stringTokenizer;
 	// Error
 	// myarray2[0] = 1;
 
 	double[] values = { 0.1, 5.2, 5.3, 6.3, 83.3 };
 
 	public void method() throws FileNotFoundException {
-		myarray2[0] = 1;
+		String[] mystring = { "Hello", "World", "There" };
+		
+		// One way 
+		// Hello,World,There
+		String joinedStr2 = String.join(",", mystring);
+		System.out.println("String.join ==>" + joinedStr2); 
+
+		// second way 
+		/*[Hello, World, There]*/
+		String joinedStr = Arrays.toString(mystring); 
+		System.out.println("Arrays.toString ==>" + joinedStr); 
+		
+		
+		/*[Hello, World, There]*/
+		String joinedStr1 = Arrays.asList(mystring).toString(); 
+		System.out.println("Arrays.asList.toString ==>" + joinedStr1);
+		
+		
+		stringTokenizer = new StringTokenizer(joinedStr2, ",");
+
+		// Error		
+		while (stringTokenizer.hasMoreElements()) {
+			System.out.println("Token : " + (stringTokenizer.nextElement()));
+			/* Token : Hello
+			Token : World
+			Token : There */
+		}
+
+		/*myarray2[0] = 1;
 
 		for (float f : myarray) {
 			System.out.printf("%.2f \n", f);
@@ -46,7 +76,7 @@ class Application {
 
 		while (aScanner.hasNextLine()) {
 			System.out.println(aScanner.nextLine());
-		}
+		}*/
 
 	}
 
